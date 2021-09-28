@@ -4,19 +4,14 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.zhou.gradlestudy1023"
+        applicationId "com.zhou.gradlestudy1028"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
+
 
     signingConfigs{
         debug{
@@ -28,6 +23,24 @@ android {
             v2SigningEnabled true
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+
+    }
+
+
 }
 
 dependencies {
@@ -37,15 +50,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(path: ':comm')
+   // implementation project(path: ':comm')
 }
 
 
 //多渠道打包插件配置
-apply plugin: 'hank.zhou.v1Channel'
+//apply plugin: 'hank.zhou.v1Channel'
+/*
 channelExt {
     baseApkPath "${buildDir}/outputs/apk/debug/app-debug.apk"
     outDir "${buildDir}/outputs/flavor"
     channelConfigPath "${projectDir}/flavorConfig/channel.txt"
     themeConfigPath "${projectDir}/flavorConfig/theme.txt"
-}
+}*/

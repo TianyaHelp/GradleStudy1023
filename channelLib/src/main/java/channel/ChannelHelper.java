@@ -26,16 +26,16 @@ public class ChannelHelper {
 
     public static String getChannel(String sourceDir) {
         if (channel != null) {
-            System.out.println("ÒÑÓĞÇşµÀĞÅÏ¢£¬²»ÔÙ¶ÁÈ¡ Ö±½Ó·µ»Ø" + channel);
+            System.out.println("å·²æœ‰æ¸ é“ä¿¡æ¯ï¼Œä¸å†è¯»å– ç›´æ¥è¿”å›" + channel);
             return channel;
         }
         try {
             Apk apk = ApkParser.parser(sourceDir);
             if (apk.isV2()) {
-                System.out.println("ÕâÊÇV2Ç©ÃûµÄapk£¬ÏÖÔÚÓÃV2µÄ·½Ê½À´¶ÁÈ¡ÇşµÀĞÅÏ¢");
+                System.out.println("è¿™æ˜¯V2ç­¾åçš„apkï¼Œç°åœ¨ç”¨V2çš„æ–¹å¼æ¥è¯»å–æ¸ é“ä¿¡æ¯");
                 return v2Channel(apk);
             } else if (apk.isV1()) {
-                System.out.println("ÕâÊÇV1Ç©ÃûµÄapk£¬ÏÖÔÚÓÃV1µÄ·½Ê½À´¶ÁÈ¡ÇşµÀĞÅÏ¢");
+                System.out.println("è¿™æ˜¯V1ç­¾åçš„apkï¼Œç°åœ¨ç”¨V1çš„æ–¹å¼æ¥è¯»å–æ¸ é“ä¿¡æ¯");
                 return v1Channel(apk);
             }
         } catch (Exception e) {
@@ -68,16 +68,16 @@ public class ChannelHelper {
 
 
     public static String getV1Channel(String sourceDir) {
-        //µ±Ç°appµÄapkÎÄ¼ş
+        //å½“å‰appçš„apkæ–‡ä»¶
         ZipFile zipfile = null;
         StringBuilder channel = new StringBuilder();
         try {
-            // ±éÀúAPKÖĞËùÓĞÎÄ¼ş
+            // éå†APKä¸­æ‰€æœ‰æ–‡ä»¶
             zipfile = new ZipFile(sourceDir);
             Enumeration<? extends ZipEntry> entries = zipfile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                // ¶ÁÈ¡ META-INF/channel ÖĞµÄĞÅÏ¢£¨ÇşµÀĞÅÏ¢£©
+                // è¯»å– META-INF/channel ä¸­çš„ä¿¡æ¯ï¼ˆæ¸ é“ä¿¡æ¯ï¼‰
                 String entryName = entry.getName();
                 if (entryName.startsWith("META-INF/channel")) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(zipfile

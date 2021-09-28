@@ -7,10 +7,10 @@ import org.gradle.api.Project;
 public class MyProject implements Plugin<Project> {
     @Override
     public void apply(Project project) {
-        //´´½¨gradle×Ô¶¨ÒåĞÅÏ¢
+        //åˆ›å»ºgradleè‡ªå®šä¹‰ä¿¡æ¯
         project.getExtensions().create("channelExt", ChannelExt.class);
 
-        //´´½¨×Ô¶¨ÒåÈÎÎñ£¬²ÎÊıÎªÃû×ÖÒÔ¼°ÊµÏÖÀà
+        //åˆ›å»ºè‡ªå®šä¹‰ä»»åŠ¡ï¼Œå‚æ•°ä¸ºåå­—ä»¥åŠå®ç°ç±»
         project.afterEvaluate(new Action<Project>() {
             @Override
             public void execute(Project project) {

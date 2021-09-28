@@ -16,17 +16,17 @@ class MyTask extends DefaultTask {
     private ChannelExt channelExt;
 
     public MyTask() {
-        setGroup("V1Ç©ÃûÇşµÀ°ü");
-        setDescription("V1Ç©ÃûÇşµÀ°ü");
+        setGroup("V1ç­¾åæ¸ é“åŒ…");
+        setDescription("V1ç­¾åæ¸ é“åŒ…");
         channelExt = getProject().getExtensions().getByType(ChannelExt.class);
     }
 
     @TaskAction
     void run() throws Exception {
-        System.out.println("==============½øÈëÇşµÀ°ü´ò°üÂß¼­===============" + channelExt);
-        //¶ÁÈ¡ÅäÖÃºÃµÄ²ÎÊı
+        System.out.println("==============è¿›å…¥æ¸ é“åŒ…æ‰“åŒ…é€»è¾‘===============" + channelExt);
+        //è¯»å–é…ç½®å¥½çš„å‚æ•°
         if (channelExt == null || !channelExt.isOk()) {
-            System.out.println(" Ã»ÓĞÈ¡µÃ±ØĞëµÄ²ÎÊı...");
+            System.out.println(" æ²¡æœ‰å–å¾—å¿…é¡»çš„å‚æ•°...");
             return;
         }
         File baseFile = new File(channelExt.getBaseApkPath());
@@ -36,12 +36,12 @@ class MyTask extends DefaultTask {
         outDirFile.mkdirs();
         List<String> channelConfigs = FlavorUtil.getStrListFromFile(channelConfigFile);
         List<String> themeConfigs = FlavorUtil.getStrListFromFile(themeConfigFile);
-        //È»ºó¼ÆËã³öÁ½¸ölistµÄ³Ë»ı(Êı×éAÓĞ4¸öÔªËØ£¬Êı×éBÓĞ5¸öÔªËØ£¬ËùÒÔ³Ë»ıÒ»¹²ÓĞ20¸öÔªËØ)
+        //ç„¶åè®¡ç®—å‡ºä¸¤ä¸ªlistçš„ä¹˜ç§¯(æ•°ç»„Aæœ‰4ä¸ªå…ƒç´ ï¼Œæ•°ç»„Bæœ‰5ä¸ªå…ƒç´ ï¼Œæ‰€ä»¥ä¹˜ç§¯ä¸€å…±æœ‰20ä¸ªå…ƒç´ )
         List<String> finalFlavors = FlavorUtil.calculateListProduct(channelConfigs, themeConfigs);
         for (String flavorName : finalFlavors) {
-            Apk apk = ApkParser.parser(baseFile);//2¡¢½âÎöAPK(zipÎÄ¼ş)
+            Apk apk = ApkParser.parser(baseFile);//2ã€è§£æAPK(zipæ–‡ä»¶)
             File file = new File(outDirFile, "app-debug-" + flavorName + ".apk");
-            ApkBuilder.generateChannel(flavorName, apk, file);//3¡¢Éú³ÉAPK
+            ApkBuilder.generateChannel(flavorName, apk, file);//3ã€ç”ŸæˆAPK
         }
 
     }

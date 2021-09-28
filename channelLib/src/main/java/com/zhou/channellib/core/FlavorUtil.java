@@ -15,28 +15,28 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * ·çÎ¶¶ÁÈ¡¹¤¾ßÀà
+ * é£å‘³è¯»å–å·¥å…·ç±»
  */
 public class FlavorUtil {
     static final String flavorDirName = "flavor";
 
     /**
-     * »ñµÃV1Ç©ÃûµÄ·çÎ¶
+     * è·å¾—V1ç­¾åçš„é£å‘³
      *
-     * @param sourceDir apkÎÄ¼şµÄpath
+     * @param sourceDir apkæ–‡ä»¶çš„path
      * @return
      */
     public static String getV1Flavor(String sourceDir) {
-        //µ±Ç°appµÄapkÎÄ¼ş
+        //å½“å‰appçš„apkæ–‡ä»¶
         ZipFile zipfile = null;
         StringBuilder channel = new StringBuilder();
         try {
-            // ±éÀúAPKÖĞËùÓĞÎÄ¼ş
+            // éå†APKä¸­æ‰€æœ‰æ–‡ä»¶
             zipfile = new ZipFile(sourceDir);
             Enumeration<? extends ZipEntry> entries = zipfile.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                // ¶ÁÈ¡ META-INF/channel ÖĞµÄĞÅÏ¢£¨ÇşµÀĞÅÏ¢£©
+                // è¯»å– META-INF/channel ä¸­çš„ä¿¡æ¯ï¼ˆæ¸ é“ä¿¡æ¯ï¼‰
                 String entryName = entry.getName();
                 if (entryName.startsWith("META-INF/" + flavorDirName)) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(zipfile
@@ -64,19 +64,19 @@ public class FlavorUtil {
     }
 
     /**
-     * Õâ¸öÊÇV1Ç©ÃûµÄ²âÊÔ´úÂë
+     * è¿™ä¸ªæ˜¯V1ç­¾åçš„æµ‹è¯•ä»£ç 
      * <p>
-     * 1. ´Ó»ù×¼apk¸´ÖÆÒ»·İ flavor apk£¬ÄÚÈİÍêÈ«Ò»Ñù
-     * 2. ÔÚ¸Õ¸Õ¸´ÖÆ³öµÄflavor apkÖĞ£¬Ğ´ÈëÇşµÀĞÅÏ¢
+     * 1. ä»åŸºå‡†apkå¤åˆ¶ä¸€ä»½ flavor apkï¼Œå†…å®¹å®Œå…¨ä¸€æ ·
+     * 2. åœ¨åˆšåˆšå¤åˆ¶å‡ºçš„flavor apkä¸­ï¼Œå†™å…¥æ¸ é“ä¿¡æ¯
      *
      * @throws IOException
      */
     public static void makePkg(String basePath, String flavorName, String outApkName) throws IOException {
         File baseApk = new File(basePath);
-        //¼ÓÈëÇşµÀĞÅÏ¢ºóÊä³ö
+        //åŠ å…¥æ¸ é“ä¿¡æ¯åè¾“å‡º
         JarOutputStream jos = new JarOutputStream(new FileOutputStream(outApkName));
 
-        //½«Ô­APKÖĞËùÓĞĞÅÏ¢¿½±´µ½ jos
+        //å°†åŸAPKä¸­æ‰€æœ‰ä¿¡æ¯æ‹·è´åˆ° jos
         ZipFile jarFile = new ZipFile(baseApk);
         Enumeration<? extends ZipEntry> entries = jarFile.entries();
         while (entries.hasMoreElements()) {
@@ -91,18 +91,18 @@ public class FlavorUtil {
             jos.closeEntry();
         }
 
-        //×îºóĞ´ÈëÒ»¸ö channel ÎÄ¼ş
+        //æœ€åå†™å…¥ä¸€ä¸ª channel æ–‡ä»¶
         ZipEntry zipEntry = new ZipEntry("META-INF/" + FlavorUtil.flavorDirName);
         jos.putNextEntry(zipEntry);
-        jos.write(flavorName.getBytes());//°Ñ·çÎ¶ĞÅÏ¢Ğ´Èëµ½ META-INFµÄĞÂ½¨µÄÎÄ¼şÖĞ
+        jos.write(flavorName.getBytes());//æŠŠé£å‘³ä¿¡æ¯å†™å…¥åˆ° META-INFçš„æ–°å»ºçš„æ–‡ä»¶ä¸­
         jos.closeEntry();
         jos.close();
-        System.out.println("Êä³öÂ·¾¶:" + outApkName);
+        System.out.println("è¾“å‡ºè·¯å¾„:" + outApkName);
     }
 
     static List<String> getStrListFromFile(File f) {
         List<String> strList = new ArrayList<>();
-        //ÖğĞĞ¶ÁÈ¡ÎÄ¼şµÄÃ¿Ò»ĞĞ£¬×îºóĞÎ³ÉÒ»¸öList
+        //é€è¡Œè¯»å–æ–‡ä»¶çš„æ¯ä¸€è¡Œï¼Œæœ€åå½¢æˆä¸€ä¸ªList
         FileReader fr = null;
         BufferedReader br = null;
         try {
@@ -110,13 +110,13 @@ public class FlavorUtil {
             br = new BufferedReader(fr);
 
             String currentLine;
-            System.out.println("µ±Ç°ÎÄ¼şÊÇ£º" + f.getAbsolutePath());
+            System.out.println("å½“å‰æ–‡ä»¶æ˜¯ï¼š" + f.getAbsolutePath());
             while ((currentLine = br.readLine()) != null) {
                 strList.add(currentLine);
 
-                System.out.println("µ±Ç°ĞĞ£º" + currentLine);
+                System.out.println("å½“å‰è¡Œï¼š" + currentLine);
             }
-            System.out.println("ÎÄ¼ş¶ÁÈ¡Íê±Ï£º" + f.getAbsolutePath());
+            System.out.println("æ–‡ä»¶è¯»å–å®Œæ¯•ï¼š" + f.getAbsolutePath());
             return strList;
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +132,7 @@ public class FlavorUtil {
     }
 
     /**
-     * ¼ÆËãÁ½¸öÊı×éµÄ³Ë»ı
+     * è®¡ç®—ä¸¤ä¸ªæ•°ç»„çš„ä¹˜ç§¯
      *
      * @param list1
      * @param list2
@@ -140,20 +140,20 @@ public class FlavorUtil {
      */
     static List<String> calculateListProduct(List<String> list1, List<String> list2) {
         List<String> result = new ArrayList<>();
-        //ÏÈ´¦ÀíÌØÊâÇé¿ö
+        //å…ˆå¤„ç†ç‰¹æ®Šæƒ…å†µ
         if (list1 == null || list1.size() == 0) {
             return list2;
         } else if (list2 == null || list2.size() == 0) {
             return list1;
         }
 
-        //È»ºóÀ´½øĞĞÕı¾­¼ÆËã
-        //Á½¸ö¶¼²»Îª¿ÕµÄÇé¿ö
+        //ç„¶åæ¥è¿›è¡Œæ­£ç»è®¡ç®—
+        //ä¸¤ä¸ªéƒ½ä¸ä¸ºç©ºçš„æƒ…å†µ
         StringBuilder sb;
         for (int i = 0; i < list1.size(); i++) {
             for (int j = 0; j < list2.size(); j++) {
                 sb = new StringBuilder(list1.get(i));//
-                sb.append("_");  //¶à¸öÎ¬¶ÈÖ®¼äÈçºÎÓÃ×Ö·û´®µÄĞÎÊ½±íÊ¾£¬¿ÉÒÔËæÒâ¶¨Òå£¬µ«ÊÇÕâÀï¶¨ÒåÁË£¬½â¶ÁµÄÊ±ºò¾ÍÒª°´ÕÕ¶ÔÓ¦µÄ¹æÔòÈ¥½âÎö
+                sb.append("_");  //å¤šä¸ªç»´åº¦ä¹‹é—´å¦‚ä½•ç”¨å­—ç¬¦ä¸²çš„å½¢å¼è¡¨ç¤ºï¼Œå¯ä»¥éšæ„å®šä¹‰ï¼Œä½†æ˜¯è¿™é‡Œå®šä¹‰äº†ï¼Œè§£è¯»çš„æ—¶å€™å°±è¦æŒ‰ç…§å¯¹åº”çš„è§„åˆ™å»è§£æ
                 sb.append(list2.get(j));
                 result.add(sb.toString());
             }

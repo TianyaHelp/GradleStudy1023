@@ -5,9 +5,10 @@ dependencies {
     implementation gradleApi()
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
+/*
 apply plugin: 'maven-publish'
 publishing {
     publications {
@@ -18,4 +19,4 @@ publishing {
             version = '1.8'
         }
     }
-}
+}*/
